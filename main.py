@@ -1,21 +1,25 @@
 import numpy as np
 
+from PIL_helper import draw_circle, draw_mat_color
+
 
 class World:
-    def __init__(self):
-        self.height, self.width = 10, 10
-        self.world_field = np.zeros(shape=(self.height, self.width))
-        self.start = (1, 1)
-        self.end = (8, 8)
-        self.agents = []
-        self.world_map = self.init_world_map()
+    def __init__(self, file_path):
+        self.world_map = np.load(file_path)
+        self.height, self.width = self.world_map.shape
+        # self.world_field = np.zeros(shape=(self.height, self.width))
+        self.start = (50, 50)
+        self.end = (550, 550)
+        # self.agents = []
 
-    def init_world_map(self):
-        world_map = np.empty([self.height, self.width], dtype=str)
-        # world_map = [[' ' for _ in range(self.width)] for _ in range(self.height)]
-        world_map[self.start] = 'S'
-        world_map[self.end] = 'E'
-        return world_map
+    def render(self):
+        # pil_image = draw_mat(self.world_map)
+        pil_image = draw_mat_color(self.world_map)
+        draw_circle(*self.start, 10, img=pil_image, color='red')
+        draw_circle(*self.end, 10, img=pil_image, color='blue')
+        pil_image.show()
 
 
-w = World()
+# main
+w = World('maps/map1.npy')
+w.render()
