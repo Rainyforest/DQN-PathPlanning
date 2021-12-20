@@ -123,6 +123,5 @@ xdg==5
 xkit==0.0.0
 yarg==0.1.9
 zipp==1.0.0
-
 gym~=0.21.0
 matplotlib~=3.5.1
