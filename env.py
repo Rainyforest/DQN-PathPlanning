@@ -70,9 +70,10 @@ class World(gym.Env):
         D_OBS = np.where(D_OBS > REPULSIVE_THRESHOLD,
                          0,
                          D_OBS)
-        U_repulsive = np.where(D_OBS == 0,
-                               OBSTACLE_POTENTIAL,
-                               D_OBS)
+        D_OBS = np.where(D_OBS == 0,
+                         float('inf'),
+                         D_OBS)
+        U_repulsive = np.clip(D_OBS, 0, OBSTACLE_POTENTIAL)
 
         U_blackhole = np.where(D <= BLACKHOLE_THRESHOLD,
                                -0.5 * K_blackhole * ((BLACKHOLE_THRESHOLD - D) ** 2),
@@ -92,7 +93,7 @@ class World(gym.Env):
         fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
         # Plot the surface.
         surf = ax.plot_surface(X, Y, Z, cmap=cm.coolwarm,
-                               linewidth=0, antialiased=True, rcount=self.height/10, ccount=self.width/10)
+                               linewidth=0, antialiased=True, rcount=self.height / 10, ccount=self.width / 10)
         # Add a color bar which maps values to colors.
         fig.colorbar(surf, shrink=0.5, aspect=5)
 
