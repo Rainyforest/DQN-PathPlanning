@@ -1,14 +1,9 @@
-from PIL.Image import fromarray
-from PIL.ImageDraw import Draw
+from matplotlib import pyplot as plt
 
 
 def draw_mat(mat):
-    pixel_map = (1 - mat) * 255
-    pil_image = fromarray(pixel_map)
-    pil_image = pil_image.convert('RGB')
-    return pil_image
+    plt.imshow(mat, cmap="binary")
 
 
-def draw_circle(X, Y, r, img, color='black'):
-    draw = Draw(img)
-    draw.ellipse([(X - r, Y - r), (X + r, Y + r)], fill=color, outline=color)
+def draw_point(x, y, size=10, color='k', label=''):
+    plt.plot(x, y, marker='o', markersize=size, color=color, label=label)
