@@ -6,4 +6,4 @@ def draw_mat(mat):
 
 
 def draw_point(x, y, size=10, color='k', label=''):
-    plt.plot(x, y, marker='o', markersize=size, color=color, label=label)
+    plt.plot(x, y, marker='o', markersize=size, color=color, label=label, linestyle="None")
